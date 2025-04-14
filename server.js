@@ -36,12 +36,22 @@ app.get("/administrator", keycloak.protect("realm:admin"), (req, res) => {
 	res.send("This is a protected route user");
 });
 
+app.get("/all", keycloak.protect(["realm:user", "realm:admin"]), (req, res) => {
+	// This route is protected by Keycloak
+	res.send("This is a protected route user");
+});
+
 app.get("/protected", keycloak.protect(), (req, res) => {
 	const tokenContent = req.kauth.grant.access_token.content;
 	const scope = tokenContent.scope;
 
 	console.log("Escopos do Token:", scope);
 	res.json({ message: "Rota protegida!", scopes: scope.split(" ") });
+});
+
+app.get("/scope", keycloak.enforcer("scope:profile"), (req, res) => {
+	// This route is protected by Keycloak
+	res.send("This is a protected route user");
 });
 
 app.use(keycloak.middleware({ logout: "/logoff" }));
