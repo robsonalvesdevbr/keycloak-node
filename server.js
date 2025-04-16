@@ -20,6 +20,35 @@ const keycloak = new Keycloak({
 });
 
 app.use(keycloak.middleware());
+app.use(keycloak.middleware({ logout: "/logoff" }));
+app.use(keycloak.middleware({ admin: "/callbacks" }));
+
+// Middleware global para verificar role ou scope padrão
+defaultScopeMiddleware = (req, res, next) => {
+	if (req.path === "/logoff" || req.path === "/callbacks") {
+		return next();
+	}
+
+	if (req.kauth?.grant?.access_token) {
+		const tokenContent = req.kauth.grant.access_token.content;
+		const scopes = tokenContent.scope.split(" ");
+		const roles = tokenContent.realm_access?.roles || []; //
+
+		// Verifica se o escopo padrão ou a role padrão está presente
+		//if (scopes.includes("app-payment-scope") || roles.includes("user")) {
+		//	return next();
+		//}
+
+		if (scopes.includes("app-payment-scope")) {
+			return next();
+		}
+	}
+
+	res.status(403).send("Forbidden: Insufficient scope or role");
+};
+
+// Aplica o middleware global
+app.use(defaultScopeMiddleware);
 
 app.get("/complain", keycloak.protect(), (req, res) => {
 	// This route is protected by Keycloak
@@ -45,7 +74,7 @@ app.get("/protected", keycloak.protect(), (req, res) => {
 	const tokenContent = req.kauth.grant.access_token.content;
 	const scope = tokenContent.scope;
 
-	console.log("Escopos do Token:", scope);
+	//console.log("Escopos do Token:", scope);
 	res.json({ message: "Rota protegida!", scopes: scope.split(" ") });
 });
 
@@ -60,8 +89,13 @@ app.get("/scope", keycloak.protect(), (req, res) => {
 	}
 });
 
-app.use(keycloak.middleware({ logout: "/logoff" }));
-app.use(keycloak.middleware({ admin: "/callbacks" }));
+app.get(
+	"/scopeenforced",
+	keycloak.enforcer("scope:app-payment-scope"),
+	(req, res) => {
+		res.send("This is a protected route user with the correct scope");
+	},
+);
 
 app.listen(8000, () => {
 	console.log("App listening on port 8000");
