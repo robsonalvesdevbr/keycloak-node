@@ -1,0 +1,36 @@
+@token = eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI3SGxxX1BmU2pDVjlZZUM3Yy1LZGRCVTZPQ0czVXMwN2tOb0ZxTkhsbjhNIn0.eyJleHAiOjE3NDQ4MDM5NjMsImlhdCI6MTc0NDgwMzY2MywiYXV0aF90aW1lIjoxNzQ0ODAzNjM4LCJqdGkiOiJvbnJ0YWM6YjYwYjA1NTktYTczZi00YzNlLWIzMWEtZGU5MDA2OTk1MmY4IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9lY29tbWVyY2UiLCJzdWIiOiJhNTY4NTE0NS02OGVjLTQxOGMtOGUyMy01YWE4NmEyZWRiZWQiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJhcHAtcGF5bWVudC1jbGllbnQiLCJzaWQiOiI4OTQxYmY2Zi0xMjE5LTQ3ODktYTI2OS05ODFmMWZmMTU1NGUiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsib2ZmbGluZV9hY2Nlc3MiLCJhcHAtcGF5bWVudC1yb2xlIiwidXNlciJdfSwic2NvcGUiOiJvcGVuaWQgZW1haWwgcHJvZmlsZSBhcHAtcGF5bWVudC1zY29wZSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoiUm9ic29uIEFsdmVzIiwicHJlZmVycmVkX3VzZXJuYW1lIjoicm9ic29uIiwiZ2l2ZW5fbmFtZSI6IlJvYnNvbiIsImZhbWlseV9uYW1lIjoiQWx2ZXMiLCJlbWFpbCI6InJvYnNvbkB0ZXN0dXNlci5jb20ifQ.jeWehUs3Ra0tUou-xIIv-E_k0xFpPddXm70MpHVzBhHtpgJMfFewGFxuDWLm47zXilOs0x5e-zjs8FMrEsp39kTnARqJPCIZcVyNWC43unYF0NwSpYq2-u60Toav5-0zoTDabTr5Rm0gee9Qhnshzl877JG2yD49rr9ULh53jAywiRwE72JEU8PwFGcQvMRZrNu_5Z8i2-nq8JOXx4e5Y8LatTVXmP9wrri-C9IWlHKCjqi9U_1vRij6LNE5_q7HsxGz6TiPFLl1slLvgwdweTXVXRekdsOyEC9_mmEkvPIfPqf7PaW6iDG_t-pmgvI9UdPbwkLJGRHxlca5wZjo_Q
+
+###
+# Protected endpoint
+GET http://localhost:8000/complain
+Authorization: Bearer {{token}}
+
+###
+# Protected endpoint 
+# role:user
+GET http://localhost:8000/user
+Authorization: Bearer {{token}}
+
+###
+# Protected endpoint 
+# role:admin
+GET http://localhost:8000/administrator
+Authorization: Bearer {{token}}
+
+###
+# Protected endpoint 
+# role:admin or role:user
+GET http://localhost:8000/all
+Authorization: Bearer {{token}}
+
+###
+# Protected endpoint
+# Show scopes
+GET http://localhost:8000/protected
+Authorization: Bearer {{token}}
+
+###
+# Protected endpoint
+# scope:app-payment-client
+GET http://localhost:8000/scope
+Authorization: Bearer {{token}}
