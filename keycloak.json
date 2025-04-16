@@ -2,7 +2,13 @@
 	"realm": "ecommerce",
 	"auth-server-url": "http://localhost:8080/",
 	"ssl-required": "external",
-	"resource": "app-payment-client",
-	"public-client": true,
-	"confidential-port": 0
+	"resource": "app-payment-client-2",
+	"verify-token-audience": true,
+	"credentials": {
+		"secret": "v1fu68gKbuQccWO5mVSUWv5AwOvu1Ls6"
+	},
+	"confidential-port": 0,
+	"policy-enforcer": {
+		"credentials": {}
+	}
 }
