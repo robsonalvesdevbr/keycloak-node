@@ -9,6 +9,20 @@
 	},
 	"confidential-port": 0,
 	"policy-enforcer": {
-		"credentials": {}
+		"credentials": {},
+		"user-managed-access": {},
+		"enforcement-mode": "ENFORCING",
+		"paths": [
+			{
+				"path": "/*",
+				"methods": ["GET"],
+				"scopes": ["app-payment-client"]
+			},
+			{
+				"path": "/api/v1/payments/{id}",
+				"methods": ["GET"],
+				"scopes": ["payment:read"]
+			}
+		]
 	}
 }
