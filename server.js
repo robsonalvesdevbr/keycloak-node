@@ -49,9 +49,15 @@ app.get("/protected", keycloak.protect(), (req, res) => {
 	res.json({ message: "Rota protegida!", scopes: scope.split(" ") });
 });
 
-app.get("/scope", keycloak.enforcer("scope:app-payment-scope"), (req, res) => {
-	// This route is protected by Keycloak
-	res.send("This is a protected route user");
+app.get("/scope", keycloak.protect(), (req, res) => {
+	const tokenContent = req.kauth.grant.access_token.content;
+	const scopes = tokenContent.scope.split(" ");
+
+	if (scopes.includes("app-payment-scope")) {
+		res.send("This is a protected route user with the correct scope");
+	} else {
+		res.status(403).send("Forbidden: Insufficient scope");
+	}
 });
 
 app.use(keycloak.middleware({ logout: "/logoff" }));
