@@ -1,0 +1,46 @@
+@token = eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI3SGxxX1BmU2pDVjlZZUM3Yy1LZGRCVTZPQ0czVXMwN2tOb0ZxTkhsbjhNIn0.eyJleHAiOjE3NDQ4MDMyOTYsImlhdCI6MTc0NDgwMjk5NiwiYXV0aF90aW1lIjoxNzQ0ODAyOTYzLCJqdGkiOiJvbnJ0YWM6MTM0YWFiODQtMWFhNS00MDgxLTlhMGQtZjJiMDQ2MWEzZjk2IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9lY29tbWVyY2UiLCJzdWIiOiJhNTY4NTE0NS02OGVjLTQxOGMtOGUyMy01YWE4NmEyZWRiZWQiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJhcHAtcGF5bWVudC1jbGllbnQiLCJzaWQiOiIzYzU5MDliYy05MDA4LTQzNDMtYTAwMC1lNmRlYWQ5NzMxMWEiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsib2ZmbGluZV9hY2Nlc3MiLCJhcHAtcGF5bWVudC1yb2xlIiwidXNlciJdfSwic2NvcGUiOiJvcGVuaWQgZW1haWwgcHJvZmlsZSBhcHAtcGF5bWVudC1zY29wZSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoiUm9ic29uIEFsdmVzIiwicHJlZmVycmVkX3VzZXJuYW1lIjoicm9ic29uIiwiZ2l2ZW5fbmFtZSI6IlJvYnNvbiIsImZhbWlseV9uYW1lIjoiQWx2ZXMiLCJlbWFpbCI6InJvYnNvbkB0ZXN0dXNlci5jb20ifQ.aPuxIUN1q63-MO4tHdMYR0LSrkyI-f7ZCpaBKl_2pWvluv9uzq7gbw12CetgNAPU-34NQbFna7ggo9SG3pE46tHvwBEBLDXyfcZLLKI_K31ObtagPgaDn9Af9on_ZRYBNiyFQOCKLlQ-IkR19wj72dQrhgr884MbM1Y4jP6RedKGi-c_sOXA0T2VOiWgwRWdlFHdE5LWHF-hnoyvBTYw8X5rloOcsbJ8ataKk5HhFkMYoELsDcTfRfaqdlg6rhxS8PVVhKF4UrhFr0mQDqba1N0_Sa7CMyVq2PQ3CyYdYJXY4j7aUoGFSg3aFqQisFh3nx-Ql0pB76iiNiu8v1p1Tw
+
+###
+# Protected endpoint
+GET http://localhost:8000/complain
+Authorization: Bearer {{token}}
+
+###
+# Protected endpoint 
+# role:user
+GET http://localhost:8000/user
+Authorization: Bearer {{token}}
+
+###
+# Protected endpoint 
+# role:admin
+GET http://localhost:8000/administrator
+Authorization: Bearer {{token}}
+
+###
+# Protected endpoint 
+# role:admin or role:user
+GET http://localhost:8000/all
+Authorization: Bearer {{token}}
+
+###
+# Protected endpoint
+# Show scopes
+GET http://localhost:8000/protected
+Authorization: Bearer {{token}}
+
+###
+# Protected endpoint
+# scope:app-payment-client
+GET http://localhost:8000/protected
+Authorization: Bearer {{token}}
+
+###
+# Protected endpoint
+GET http://localhost:8000/logout
+Authorization: Bearer {{token}}
+
+###
+# Protected endpoint
+GET http://localhost:8000/callback
+Authorization: Bearer {{token}}

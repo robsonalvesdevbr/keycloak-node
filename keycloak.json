@@ -1,8 +1,8 @@
 {
-	"realm": "myrealm",
-	"auth-server-url": "http://localhost:8080",
+	"realm": "ecommerce",
+	"auth-server-url": "http://localhost:8080/",
 	"ssl-required": "external",
-	"resource": "myclient-public",
+	"resource": "app-payment-client",
 	"public-client": true,
 	"confidential-port": 0
 }

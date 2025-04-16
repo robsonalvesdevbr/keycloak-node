@@ -16,7 +16,7 @@ app.use(
 
 const keycloak = new Keycloak({
 	store: memoryStore,
-	scope: "myclient_access_scope",
+	scope: "app-payment-scope",
 });
 
 app.use(keycloak.middleware());
@@ -49,7 +49,7 @@ app.get("/protected", keycloak.protect(), (req, res) => {
 	res.json({ message: "Rota protegida!", scopes: scope.split(" ") });
 });
 
-app.get("/scope", keycloak.enforcer("scope:profile"), (req, res) => {
+app.get("/scope", keycloak.enforcer("scope:app-payment-scope"), (req, res) => {
 	// This route is protected by Keycloak
 	res.send("This is a protected route user");
 });
@@ -57,6 +57,6 @@ app.get("/scope", keycloak.enforcer("scope:profile"), (req, res) => {
 app.use(keycloak.middleware({ logout: "/logoff" }));
 app.use(keycloak.middleware({ admin: "/callbacks" }));
 
-app.listen(3000, () => {
-	console.log("App listening on port 3000");
+app.listen(8000, () => {
+	console.log("App listening on port 8000");
 });
