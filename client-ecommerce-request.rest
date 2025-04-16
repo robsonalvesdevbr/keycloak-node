@@ -34,3 +34,11 @@ Authorization: Bearer {{token}}
 # scope:app-payment-client
 GET http://localhost:8000/scope
 Authorization: Bearer {{token}}
+
+###
+# Protected endpoint
+GET http://localhost:8000/logoff
+
+###
+# Protected endpoint
+GET http://localhost:8000/callbacks
