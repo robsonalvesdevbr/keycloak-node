@@ -1,0 +1,11 @@
+{
+	"postman.settings.dotenv-detection-notification-visibility": false,
+	"workbench.statusBar.visible": true,
+	"workbench.colorCustomizations": {
+		"statusBar.background": "#8dca81",
+		"statusBar.foreground": "#15202b",
+		"statusBarItem.hoverBackground": "#9fccb8",
+		"statusBarItem.remoteBackground": "#8dca81",
+		"statusBarItem.remoteForeground": "#15202b"
+	}
+}
