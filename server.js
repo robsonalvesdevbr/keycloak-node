@@ -1,6 +1,7 @@
 const session = require("express-session");
 const Keycloak = require("keycloak-connect");
 const express = require("express");
+const cors = require("cors");
 const app = express();
 
 const memoryStore = new session.MemoryStore();
@@ -20,6 +21,8 @@ const keycloak = new Keycloak({
 });
 
 app.use(keycloak.middleware());
+
+app.use(cors())
 
 const nonProtectedRoutes = ["/logoff", "/callbacks"];
 
