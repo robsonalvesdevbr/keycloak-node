@@ -47,7 +47,7 @@ function checkPaymentScope(req, res, next) {
 app.use(checkPaymentScope);
 
 // Middleware para verificar o scope app-payment-scope
-function checkPaymentScopeUse(req, res, next) {
+function checkPaymentScopeRote(req, res, next) {
 	// Primeiro verifica se o token é válido
 	keycloak.protect()(req, res, (error) => {
 		if (error) {
@@ -67,7 +67,7 @@ function checkPaymentScopeUse(req, res, next) {
 	});
 }
 
-app.get("/testuses", checkPaymentScopeUse, (req, res) => {
+app.get("/testuses", checkPaymentScopeRote, (req, res) => {
 	res.send("This is a protected route user with the correct scope");
 });
 
