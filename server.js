@@ -33,7 +33,7 @@ function checkPaymentScope(req, res, next) {
 
 		const token = req.kauth.grant.access_token;
 		const scopes = token.content.scope || '';
-		const roles = token.realm_access?.roles || []; //
+		const roles = token.content.realm_access?.roles || []; //
 
 		if (scopes.split(' ').includes('app-payment-scope')) {
 			return next();
@@ -45,6 +45,31 @@ function checkPaymentScope(req, res, next) {
 
 // Aplica o middleware global
 app.use(checkPaymentScope);
+
+// Middleware para verificar o scope app-payment-scope
+function checkPaymentScopeUse(req, res, next) {
+	// Primeiro verifica se o token é válido
+	keycloak.protect()(req, res, (error) => {
+		if (error) {
+			return res.status(401).json({ error: 'Unauthorized' });
+		}
+
+		const token = req.kauth.grant.access_token;
+		const scopes = token.content.scope || '';
+		const roles = token.content.realm_access?.roles || []; //
+
+		if (scopes.split(' ').includes('app-payment-scope')) {
+			return next();
+		}
+
+		// Scope não encontrado
+		return res.status(403).json({ error: 'Forbidden - Missing required scope' });
+	});
+}
+
+app.get("/testuses", checkPaymentScopeUse, (req, res) => {
+	res.send("This is a protected route user with the correct scope");
+});
 
 app.get("/complain", keycloak.protect(), (req, res) => {
 	res.send("This is a protected route");
