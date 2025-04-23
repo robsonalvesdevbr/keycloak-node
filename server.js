@@ -23,32 +23,28 @@ app.use(keycloak.middleware());
 
 const nonProtectedRoutes = ["/logoff", "/callbacks"];
 
-// Middleware global para verificar role ou scope padrão
-defaultScopeMiddleware = (req, res, next) => {
-	if (nonProtectedRoutes.includes(req.path)) {
-		return next();
-	}
+function checkPaymentScope(req, res, next) {
+	keycloak.protect()(req, res, (error) => {
+		if (error) return res.status(401).json({ error: 'Unauthorized' });
 
-	if (req.kauth?.grant?.access_token) {
-		const tokenContent = req.kauth.grant.access_token.content;
-		const scopes = tokenContent.scope.split(" ");
-		const roles = tokenContent.realm_access?.roles || []; //
-
-		// Verifica se o escopo padrão ou a role padrão está presente
-		//if (scopes.includes("app-payment-scope") || roles.includes("user")) {
-		//	return next();
-		//}
-
-		if (scopes.includes("app-payment-scope")) {
+		if (nonProtectedRoutes.includes(req.path)) {
 			return next();
 		}
-	}
 
-	res.status(403).send("Forbidden: Insufficient scope or role");
-};
+		const token = req.kauth.grant.access_token;
+		const scopes = token.content.scope || '';
+		const roles = token.realm_access?.roles || []; //
+
+		if (scopes.split(' ').includes('app-payment-scope')) {
+			return next();
+		}
+
+		return res.status(403).json({ error: 'Forbidden - Missing required scope' });
+	});
+}
 
 // Aplica o middleware global
-//app.use(defaultScopeMiddleware);
+app.use(checkPaymentScope);
 
 app.get("/complain", keycloak.protect(), (req, res) => {
 	res.send("This is a protected route");
