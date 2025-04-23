@@ -8,7 +8,7 @@ const memoryStore = new session.MemoryStore();
 
 app.use(
 	session({
-		secret: "mySecret",
+		secret: "keycloak",
 		resave: false,
 		saveUninitialized: true,
 		store: memoryStore,
@@ -78,7 +78,7 @@ app.get("/checkscoperoute", checkPaymentScopeRoute, (req, res) => {
 	res.json({
 		message: "Rota protegida!",
 		required: "app-payment-scope",
-		middleware: checkPaymentScopeRote.name,
+		middleware: checkPaymentScopeRoute.name,
 		path: req.path,
 		scopes: req.kauth.grant.access_token.content.scope.split(" "),
 	});
