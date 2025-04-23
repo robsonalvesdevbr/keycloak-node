@@ -52,7 +52,7 @@ function checkPaymentScope(req, res, next) {
 app.use(checkPaymentScope);
 
 // Middleware para verificar o scope app-payment-scope
-function checkPaymentScopeRote(req, res, next) {
+function checkPaymentScopeRoute(req, res, next) {
 	// Primeiro verifica se o token é válido
 	keycloak.protect()(req, res, (error) => {
 		if (error) {
@@ -74,7 +74,7 @@ function checkPaymentScopeRote(req, res, next) {
 	});
 }
 
-app.get("/checkscoperoute", checkPaymentScopeRote, (req, res) => {
+app.get("/checkscoperoute", checkPaymentScopeRoute, (req, res) => {
 	res.json({
 		message: "Rota protegida!",
 		required: "app-payment-scope",
