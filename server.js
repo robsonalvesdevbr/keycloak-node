@@ -74,6 +74,8 @@ function checkPaymentScopeRoute(req, res, next) {
 	});
 }
 
+console.log("Rotas disponíveis")
+console.log("/checkscoperoute")
 app.get("/checkscoperoute", checkPaymentScopeRoute, (req, res) => {
 	res.json({
 		message: "Rota protegida!",
@@ -84,6 +86,7 @@ app.get("/checkscoperoute", checkPaymentScopeRoute, (req, res) => {
 	});
 });
 
+console.log("/checkprotect")
 app.get("/checkprotect", keycloak.protect(), (req, res) => {
 	res.json({
 		message: "Rota protegida!",
@@ -94,6 +97,7 @@ app.get("/checkprotect", keycloak.protect(), (req, res) => {
 	});
 });
 
+console.log("/checkroleuser")
 app.get("/checkroleuser", keycloak.protect("realm:user"), (req, res) => {
 	res.json({
 		message: "Rota protegida!",
@@ -105,6 +109,7 @@ app.get("/checkroleuser", keycloak.protect("realm:user"), (req, res) => {
 	});
 });
 
+console.log("/checkroleadmin")
 app.get("/checkroleadmin", keycloak.protect("realm:admin"), (req, res) => {
 	res.json({
 		message: "Rota protegida!",
@@ -116,6 +121,7 @@ app.get("/checkroleadmin", keycloak.protect("realm:admin"), (req, res) => {
 	});
 });
 
+console.log("/checkroles")
 app.get("/checkroles", keycloak.protect(["realm:user", "realm:admin"]), (req, res) => {
 	res.json({
 		message: "Rota protegida!",
@@ -127,6 +133,7 @@ app.get("/checkroles", keycloak.protect(["realm:user", "realm:admin"]), (req, re
 	});
 });
 
+console.log("/checkscopes")
 app.get("/checkscopes", keycloak.protect(), (req, res) => {
 	res.json({
 		message: "Rota protegida!",
@@ -138,6 +145,7 @@ app.get("/checkscopes", keycloak.protect(), (req, res) => {
 	});
 });
 
+console.log("/logout")
 app.get("/logout", (req, res) => {
 	keycloak.logout()(req, res);
 });
